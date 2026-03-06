@@ -18,10 +18,14 @@
 #  Running the adk agent programatically
 # importing all the required libraries
 import asyncio
+from dotenv import load_dotenv
+import os
 from google.adk.agents.llm_agent import Agent
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai.types import Content, Part
+
+load_dotenv()
 
 # Define your agent 
 agent = Agent(
@@ -49,20 +53,21 @@ async def run_agent():
     # create session
     session = await session_service.create_session(
         app_name = APP_NAME,
-        uer = USER_ID,
+        user_id= USER_ID,
         session_id = SESSION_ID
     )
 
     print(f"Session created: {SESSION_ID}\n")
 
     # prepare user message
+    query = input("Enter your wuery:")
     user_message = Content(
         role="user",
-        parts=[Part(text="How to I solve 2x + 5 = 13?")]
+        parts=[Part(text=query)]
     )
 
     # run agent and collect response
-    print("User: How do I solve 2x + 5 = 13?\n")
+    print(f"User: {query}\n")
     print("Agent: ",end="")
 
     async for event in runner.run_async(

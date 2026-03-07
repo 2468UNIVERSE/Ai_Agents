@@ -1,0 +1,18 @@
+# Environment Setup
+
+python3 -m venv adk-env              # Create virtual environment
+source adk-env/bin/activate          # Activate (macOS/Linux)
+adk-env\Scripts\activate             # Activate (Windows)
+pip install google-adk               # Install ADK             
+
+
+# Create Agents
+adk create my_agent                    # Create Python- based agent                
+adk create --type=config my_agent      # Create YAML based agent
+
+
+# Run Agents
+adk web                               # Web Interface (from agent dir)                         
+adk web my_agent                      # Web Interface (from parent dir)
+adk run                               # terminal execution
+adk api_server                        # REST API serve
